@@ -11,8 +11,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  FULL_IMAGE_NAME: ghcr.io/${{ github.repository }}
 
 jobs:
   build-main-image:
@@ -32,6 +30,8 @@ jobs:
         run: |
           platform=${{ matrix.platform }}
           echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY@L}" >> ${GITHUB_ENV}
+          echo "FULL_IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY@L}" >> ${GITHUB_ENV}
 
       - name: Checkout repository
         uses: actions/checkout@v4
